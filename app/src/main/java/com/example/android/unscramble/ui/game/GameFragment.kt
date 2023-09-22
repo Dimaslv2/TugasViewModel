@@ -75,7 +75,17 @@ class GameFragment : Fragment() {
     * After the last word, the user is shown a Dialog with the final score.
     */
     private fun onSubmitWord() {
-
+        val playerWord = binding.textInputEditText.text.toString()
+        if (viewModel.isUserWordCorrect(playerWord)) {
+            setErrorTextField(false)
+            if (viewModel.nextWord()) {
+                updateNextWordOnScreen()
+            } else {
+                showFinalScoreDialog()
+            }
+        } else {
+            setErrorTextField(true)
+        }
     }
 
     /*
